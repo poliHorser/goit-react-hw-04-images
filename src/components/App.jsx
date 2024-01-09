@@ -30,7 +30,7 @@ class App extends Component{
     return (
       <div>
         <Searchbar onSubmit={this.handleSearchSubmit} />
-        <ImageGallery images={images} onImageClick={this.openModal} />
+        {/* <ImageGallery images={images} onImageClick={this.openModal} /> */}
       </div>
     );
   }
