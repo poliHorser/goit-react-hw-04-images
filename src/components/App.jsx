@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Searchbar from "./Searchbar/Searchbar";
 import fetchImages from './Api/Api';
-import ImageGallery from "./ImageGallery/ImageGallery";
+// import ImageGallery from "./ImageGallery/ImageGallery";
 class App extends Component{
     state = {
       images: [],
@@ -25,7 +25,7 @@ class App extends Component{
   };
   
   render() {
-     const { images, selectedImage, searchQuery } = this.state;
+    //  const { images, selectedImage, searchQuery } = this.state;
 
     return (
       <div>
