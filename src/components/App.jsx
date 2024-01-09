@@ -1,9 +1,9 @@
 // App.jsx
-import React, { Component } from 'react';
-import ImageGallery from './ImageGallery/ImageGallery';
-import Modal from './Modal/Modal';
-import Searchbar from './Searchbar/Searchbar';
-import fetchImages from '../Api/Api';
+// import React, { Component } from 'react';
+// import ImageGallery from './ImageGallery/ImageGallery';
+// import Modal from './Modal/Modal';
+// import Searchbar from './Searchbar/Searchbar';
+// import fetchImages from '../Api/Api';
 
 class App extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class App extends Component {
 
     return (
       <div>
-        <Searchbar onSubmit={this.handleSearchSubmit} />
+        {/* <Searchbar onSubmit={this.handleSearchSubmit} />
         {searchQuery && <p>Search results for: {searchQuery}</p>}
         <ImageGallery images={images} onImageClick={this.openModal} />
         {selectedImage && (
@@ -71,8 +71,8 @@ class App extends Component {
             imageUrl={selectedImage.imageUrl}
             alt={selectedImage.alt}
             onClose={this.closeModal}
-          />
-        )}
+          /> */}
+        {/* )} */}
         <button onClick={this.handleLoadMore}>Load More</button>
       </div>
     );

@@ -1,13 +1,13 @@
-import React from 'react';
+// import React from 'react';
 
-const Button = ({ onClick, hasMoreImages }) => (
-  <>
-    {hasMoreImages && (
-      <button className="load-more-button" onClick={onClick}>
-        Load more
-      </button>
-    )}
-  </>
-);
+// const Button = ({ onClick, hasMoreImages }) => (
+//   <>
+//     {hasMoreImages && (
+//       <button className="load-more-button" onClick={onClick}>
+//         Load more
+//       </button>
+//     )}
+//   </>
+// );
 
-export default Button;
+// export default Button;
