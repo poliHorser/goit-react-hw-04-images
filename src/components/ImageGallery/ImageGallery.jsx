@@ -1,11 +1,10 @@
 import React from 'react';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem'
 
-const ImageGallery = ({ images, onImageClick }) => (
+const ImageGallery = ({ images, openModal }) => (
   <ul className="ImageGallery">
     {images.map((image) => (
-      <li key={image.id}>
-        <img src={image.url} alt={image.alt} onClick={() => onImageClick(image.url, image.alt)} />
-      </li>
+      <ImageGalleryItem key={image.id} image={image} openModal={openModal} />
     ))}
   </ul>
 );
