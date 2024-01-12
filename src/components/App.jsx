@@ -6,6 +6,7 @@ import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
 
+
 const App = () => {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
