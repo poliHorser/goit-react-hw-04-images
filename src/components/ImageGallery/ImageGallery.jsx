@@ -1,12 +1,14 @@
 import React from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem'
 
-const ImageGallery = ({ images, openModal }) => (
-  <ul className="ImageGallery">
-    {images.map((image) => (
-      <ImageGalleryItem key={image.id} image={image} openModal={openModal} />
-    ))}
-  </ul>
-);
+const ImageGallery = ({ images, onImageClick }) => {
+  return (
+    <ul className="gallery">
+      {images.map((image) => (
+        <ImageGalleryItem key={image.id} image={image} onClick={onImageClick} />
+      ))}
+    </ul>
+  );
+};
 
 export default ImageGallery;

@@ -1,27 +1,30 @@
-// Modal.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
-const Modal = ({ largeImageURL, closeModal }) => {
-  useEffect(() => {
-    const handleKeyDown = event => {
-      if (event.code === 'Escape') {
-        closeModal();
+const Modal = ({ imageUrl, onClose }) => {
+  const handleKeyUp = useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        onClose();
       }
-    };
+    },
+    [onClose]
+  );
 
-    window.addEventListener('keydown', handleKeyDown);
+  useEffect(() => {
+    document.addEventListener('keyup', handleKeyUp);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
     };
-  }, [closeModal]);
+  }, [handleKeyUp]);
 
   return (
-    <div id='Modal' className='Modal Toggle'>
-      <div>
-        <img src={largeImageURL} alt="" />
+    <div className="overlay" onClick={onClose}>
+      <div className="modal">
+        <img src={imageUrl} alt="" />
       </div>
     </div>
-  )
-}
-export default Modal
+  );
+};
+
+export default Modal;

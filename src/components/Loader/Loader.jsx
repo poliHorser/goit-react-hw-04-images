@@ -1,19 +1,14 @@
 import React from 'react';
-import { Audio } from 'react-loader-spinner'
+import { TailSpin } from 'react-loader-spinner';
 
+const Loader = () => {
+  return (
+    <TailSpin
+      color="#00BFFF"
+      height={50}
+      width={50}
+    />
+  );
+};
 
-const LoaderSpin = () => (
-  <div className="loader-container">
-      <Audio
-        height="80"
-        width="80"
-        radius="9"
-        color="green"
-        ariaLabel="three-dots-loading"
-        wrapperStyle
-        wrapperClass
-      />
-  </div>
-);
-
-export   {LoaderSpin};
+export default Loader;

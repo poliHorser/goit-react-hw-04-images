@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 
 const Searchbar = ({ onSubmit }) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [query, setQuery] = useState('');
 
-  const handleInputChange = (event) => {
-    setSearchValue(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    onSubmit(searchValue);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(query);
   };
 
   return (
@@ -25,8 +21,8 @@ const Searchbar = ({ onSubmit }) => {
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
-          value={searchValue}
-          onChange={handleInputChange}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
       </form>
     </header>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ImageGalleryItem = ({ image, openModal }) => {
-  return(
-  <li className="gallery-item">
-    <img src={image.webformatURL} openModal={() =>  openModal(image.largeImageURL)} />
+const ImageGalleryItem = ({ image, onClick }) => {
+  return (
+    <li className="gallery-item" onClick={() => onClick(image.largeImageURL)}>
+      <img src={image.previewURL} alt={image.tags} />
     </li>
-  )
-}
+  );
+};
 
 export default ImageGalleryItem;
