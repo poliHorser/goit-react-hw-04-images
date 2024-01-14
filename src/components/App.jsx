@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import fetchImages from './Api/Api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -7,77 +7,67 @@ import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
 import 'components/App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: '',
-      images: [],
-      page: 1,
-      loading: false,
-      showModal: false,
-      selectedImageUrl: '',
-      initialLoad: true,
-      totalHits: 0,
-    };
-  }
+const App = () => {
+  const [query, setQuery] = useState('');
+  const [images, setImages] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState('');
+  const [initialLoad, setInitialLoad] = useState(true);
+  const [totalHits, setTotalHits] = useState(0);
 
-  handleSearchSubmit = async (newQuery) => {
-    this.setState({ query: newQuery, page: 1, initialLoad: false });
+  const handleSearchSubmit = async (newQuery) => {
+    setQuery(newQuery);
+    setPage(1);
+    setInitialLoad(false);
+
     const data = await fetchImages(newQuery, 1);
-    this.setState({ images: data.hits, totalHits: data.totalHits });
+    setImages(data.hits);
+    setTotalHits(data.totalHits);
   };
 
-  handleLoadMore = async () => {
-    const { query, page } = this.state;
-    this.setState({ loading: true });
+  const handleLoadMore = async () => {
+    setLoading(true);
     const nextPage = page + 1;
     const data = await fetchImages(query, nextPage);
-    this.setState((prevState) => ({
-      images: [...prevState.images, ...data.hits],
-      page: nextPage,
-      loading: false,
-    }));
+
+    setImages((prevImages) => [...prevImages, ...data.hits]);
+    setPage(nextPage);
+    setLoading(false);
   };
 
-  handleImageClick = (imageUrl) => {
-    this.setState({ selectedImageUrl: imageUrl, showModal: true });
+  const handleImageClick = (imageUrl) => {
+    setSelectedImageUrl(imageUrl);
+    setShowModal(true);
   };
 
-  handleCloseModal = () => {
-    this.setState({ showModal: false, selectedImageUrl: '' });
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedImageUrl('');
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { page, images, totalHits, loading } = this.state;
-
+  useEffect(() => {
     if (page > 1 && images.length >= totalHits && !loading) {
-      // All images have been loaded, hide the button
-      if (loading !== false) {
-        this.setState({ loading: false });
-      }
+      setLoading(false);
     }
-  }
+  }, [page, images, totalHits, loading]);
 
-  render() {
-    const { images, loading, showModal, selectedImageUrl, initialLoad, totalHits} = this.state;
+  const shouldRenderLoadMoreButton = images.length < totalHits && !loading;
 
-    const shouldRenderLoadMoreButton = images.length < totalHits && !loading;
-
-    return (
-      <div className='App'>
-        <Searchbar onSubmit={this.handleSearchSubmit} />
-        {!initialLoad && (
-          <>
-            <ImageGallery images={images} onImageClick={this.handleImageClick} />
-            {loading && <Loader />}
-            {shouldRenderLoadMoreButton && <Button onClick={this.handleLoadMore} />}
-            {showModal && <Modal imageUrl={selectedImageUrl} onClose={this.handleCloseModal} />}
-          </>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className='App'>
+      <Searchbar onSubmit={handleSearchSubmit} />
+      {!initialLoad && (
+        <>
+          <ImageGallery images={images} onImageClick={handleImageClick} />
+          {loading && <Loader />}
+          {shouldRenderLoadMoreButton && <Button onClick={handleLoadMore} />}
+          {showModal && <Modal imageUrl={selectedImageUrl} onClose={handleCloseModal} />}
+        </>
+      )}
+    </div>
+  );
+};
 
 export  {App};
